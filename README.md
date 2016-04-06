@@ -1,5 +1,8 @@
 # xso-ahs
-How to retrieve OSX 10.7+ hashes and a toy  dictionary attack.
+
+Extract OSX 10.7 password hashes (SHA512, salted, PBKDF2) as XML, one line hashes.
+
+## Info
 
 As of OSX 10.7 password hashes are stored in separate plist files per user. 
 This script combines some known bash shortcuts to get at these hashes, if you have root access.
@@ -11,9 +14,9 @@ The ```transform.py``` script transforms this into a one line hash, which includ
 It also has a dictonary cracker, ```crack.py```, mainly as an example of how to extend the password cracker example from
 [Violent Python](http://www.amazon.com/Violent-Python-Cookbook-Penetration-Engineers/dp/1597499579) to modern OSX.
 
-The cracker IS a toy, it is very slow. Use a real cracker or fork this and improve it if you actually want it to finish before the sun runs out with a large dictionary.
+The cracker *IS* a toy, it is very slow. Use a real cracker or fork this and improve it if you actually want it to finish before the sun runs out with a large dictionary.
 
-# How to use
+## How to use
 Run the whole pipeline with
 
 ```sudo ./crack.sh dictionary.txt```
