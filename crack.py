@@ -1,33 +1,34 @@
+#!/usr/local/bin/python
+
 import crypt
 import sys
-import xml.etree.ElementTree as ET
 import hashlib
 import binascii
 import base64
 from sys import argv
 
-def testPass(entropy, iterations, salt, dictionaryFile):
-	for word in dictionaryFile.readlines():
-		word = word.strip('/n')
+def testPass(entropy, iterations, salt):
+	for word in open(sys.argv[1]).readlines():
+		word = word.strip()
 		wordEntropy = hashlib.pbkdf2_hmac('sha512', word, base64.b64decode(salt), int(iterations), 128)
-		if (base64.b64encode(wordEntropy) == entropy):
+		wordEntropyBase64 = base64.b64encode(wordEntropy)
+		if (wordEntropyBase64 == entropy):
 			print "[+] Found Password: " + word + "\n"
 			return
 	print "[-] Password not found"
 	return
 
 def main():
-	dictionaryFile = open(sys.argv[1])
-
-	for line in sys.stdin.readlines():
-		root = ET.fromstring(line)
-		for child in root.findall(".//data[1]"):
-			entropy = child.text.replace(" ","").strip()
-		for child in root.findall(".//integer[1]"):
-			iterations = child.text
-		for child in root.findall(".//data[2]"):
-			salt = child.text
-		testPass(entropy, iterations, salt, dictionaryFile)
+	counter = 1
+	lines = sys.stdin.readlines()
+	for line in lines:
+		lineParts = line.split("$")
+		iterations = lineParts[2].strip()
+		salt = lineParts[3].strip()
+		entropy = lineParts[4].strip()
+		print "[*] Attempting to crack hash " + str(counter) + "/" + str(len(lines))
+		testPass(entropy, iterations, salt)
+		counter += 1;
 
 if __name__ == "__main__":
 	main()
