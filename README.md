@@ -32,3 +32,7 @@ Or get them as one line hashes:
 Or run the whole thing without the top level script:
 
 ```sudo ./extract_plists.sh | ./transform.py | ./crack.py dictionary.txt```
+
+Or if you have python3 you can just do this to get the hashes:
+
+```sudo python3 extract_and_transform.py```
