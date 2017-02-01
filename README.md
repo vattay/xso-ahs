@@ -4,7 +4,7 @@ Extract OSX 10.7 password hashes (SHA512, salted, PBKDF2) as XML, one line hashe
 
 ## Info
 
-As of OSX 10.7 password hashes are stored in separate plist files per user. 
+As of OSX 10.7 password hashes are stored in separate plist files per user.
 This script combines some known bash shortcuts to get at these hashes, if you have root access.
 
 The ```extract_plists.sh``` just pulls out the hash data in xml format.
@@ -32,3 +32,7 @@ Or get them as one line hashes:
 Or run the whole thing without the top level script:
 
 ```sudo ./extract_plists.sh | ./transform.py | ./crack.py dictionary.txt```
+
+Or if you have python3 you can just do this to get the hashes:
+
+```sudo python3 extract_and_transform.py```
